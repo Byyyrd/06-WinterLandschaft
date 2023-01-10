@@ -4,8 +4,7 @@ import KAGO_framework.control.Drawable;
 import KAGO_framework.control.ViewController;
 import KAGO_framework.model.abitur.datenstrukturen.Queue;
 import javafx.collections.ArrayChangeListener;
-import my_project.model.Ball;
-import my_project.model.Car;
+import my_project.model.*;
 import my_project.view.InputManager;
 
 import java.awt.event.MouseEvent;
@@ -22,7 +21,7 @@ public class ProgramController {
 
     // Referenzen
     private ViewController viewController;  // diese Referenz soll auf ein Objekt der Klasse viewController zeigen. Über dieses Objekt wird das Fenster gesteuert.
-
+    public static ArrayList Scene = new ArrayList<Drawable>();
     /**
      * Konstruktor
      * Dieser legt das Objekt der Klasse ProgramController an, das den Programmfluss steuert.
@@ -39,12 +38,18 @@ public class ProgramController {
      * Sie erstellt die leeren Datenstrukturen, zu Beginn nur eine Queue
      */
     public void startProgram() {
-        ArrayList Scene = new ArrayList<Drawable>();
+        Scene.add(new Background());
+        Scene.add(new Street());
+        Scene.add(new Car(100,560,100,50,500));
+        Scene.add(new Moon());
+        Scene.add(new Snow());
 
-        Scene.add(new Car(100,100,100,50,500));
+
         for (Object d:Scene) {
             viewController.draw((Drawable) d);
         }
+
+
     }
 
     /**

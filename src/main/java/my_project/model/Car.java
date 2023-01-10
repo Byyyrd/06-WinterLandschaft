@@ -10,6 +10,7 @@ public class Car extends InteractiveGraphicalObject {
     double width;
     double height;
     double speed;
+    double rotation;
     public Car(double x, double y,double width,double height,double speed){
         this.x = x;
         this.y = y;
@@ -29,7 +30,6 @@ public class Car extends InteractiveGraphicalObject {
         drawTool.drawFilledCircle(x+200,y+70,30);
         drawTool.setCurrentColor(148,148,148,255);
         drawTool.drawFilledCircle(x+200,y+70,20);
-
         //Auto
         drawTool.setCurrentColor(255,215,0,255);
         drawTool.drawFilledRectangle(x,y,250,70);
@@ -69,11 +69,11 @@ public class Car extends InteractiveGraphicalObject {
         if(ViewController.isKeyDown(68)){//Right
             x += speed * dt;
         }
-        if(x > 650) {
+        if(x > 1250) {
             x = -250;
         }
         if(x < -252){
-            x = 648;
+            x = 1248;
         }
     }
 }
