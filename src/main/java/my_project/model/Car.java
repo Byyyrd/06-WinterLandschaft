@@ -68,12 +68,9 @@ public class Car extends InteractiveGraphicalObject {
         }
         if(ViewController.isKeyDown(68)){//Right
             x += speed * dt;
+
         }
-        if(x > 1250) {
-            x = -250;
-        }
-        if(x < -252){
-            x = 1248;
-        }
+
     }
+
 }

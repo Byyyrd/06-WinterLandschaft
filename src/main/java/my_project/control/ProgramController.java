@@ -22,6 +22,11 @@ public class ProgramController {
     // Referenzen
     private ViewController viewController;  // diese Referenz soll auf ein Objekt der Klasse viewController zeigen. Über dieses Objekt wird das Fenster gesteuert.
     public static ArrayList Scene = new ArrayList<Drawable>();
+    public static ArrayList FirstScreen = new ArrayList<Drawable>();
+    public static ArrayList SecondScreen = new ArrayList<Drawable>();
+    int timer;
+    int sceneIndex;
+    public Car car;
     /**
      * Konstruktor
      * Dieser legt das Objekt der Klasse ProgramController an, das den Programmfluss steuert.
@@ -40,16 +45,14 @@ public class ProgramController {
     public void startProgram() {
         Scene.add(new Background());
         Scene.add(new Street());
-        Scene.add(new Car(100,560,100,50,500));
+        car = new Car(100,560,100,50,500);
+        Scene.add(car);
         Scene.add(new Moon());
         Scene.add(new Snow());
-
 
         for (Object d:Scene) {
             viewController.draw((Drawable) d);
         }
-
-
     }
 
     /**
@@ -57,6 +60,31 @@ public class ProgramController {
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
+        timer -= 1 * dt;
+        if (timer <= 0) {
+            if (car.getX() > 1250) {
+                car.setX(-250);
+                sceneIndex++;
+                switch (sceneIndex){
+                    case 1:
+                        for (Object d:FirstScreen) {
+                            viewController.draw((Drawable) d);
+                        }
+                        break;
+                    case 2:
+                        for (Object d:SecondScreen) {
+                            viewController.draw((Drawable) d);
+                        }
+                        break;
+                    case 3:
+                        break;
+                }
 
+
+            }
+            if (car.getX() < -252) {
+                car.setY(1248);
+            }
+        }
     }
 }

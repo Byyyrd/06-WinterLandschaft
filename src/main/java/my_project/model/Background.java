@@ -6,7 +6,6 @@ import KAGO_framework.view.DrawTool;
 import java.awt.*;
 
 public class Background extends GraphicalObject {
-
     public Background(){
 
     }

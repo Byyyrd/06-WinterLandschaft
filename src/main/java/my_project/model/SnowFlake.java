@@ -28,7 +28,7 @@ public class SnowFlake extends GraphicalObject {
     @Override
     public void update(double dt) {
         y  += speed * dt;
-        if(y > 800){
+        if(y > 700){
             y = -1;
         }
 
