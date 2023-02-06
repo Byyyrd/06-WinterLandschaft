@@ -47,11 +47,16 @@ public class ProgramController {
         viewController.createScene();
         viewController.createScene();
 
-        Scene.add(new Background());
+        Sky sky = new Sky();
+        Scene.add(sky);
+        SunAndMoon sunAndMoon = new SunAndMoon(600,429);
+        Scene.add(sunAndMoon);
+        sky.setMoon(sunAndMoon);
+        Scene.add(new Grass());
         Scene.add(new Street());
         car = new Car(100,560,500);
         Scene.add(car);
-        Scene.add(new Moon(50,50));
+
         Scene.add(new Snow());
         for (int i = 0;i < 10;i++) {
             FirstScreen.add(new Tree(i*120+20, 460, 50));
