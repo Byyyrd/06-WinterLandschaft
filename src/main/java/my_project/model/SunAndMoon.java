@@ -24,7 +24,7 @@ public class SunAndMoon extends GraphicalObject {
 
     @Override
     public void update(double dt) {
-        rotation+= dt;
+        rotation+= dt/2;
         if (rotation > 2*Math.PI){
             rotation = 0;
         }

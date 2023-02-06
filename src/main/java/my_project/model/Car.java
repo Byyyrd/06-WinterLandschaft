@@ -5,16 +5,25 @@ import KAGO_framework.model.InteractiveGraphicalObject;
 import KAGO_framework.view.DrawTool;
 import my_project.control.ProgramController;
 
+
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.util.Timer;
+
 
 public class Car extends InteractiveGraphicalObject  {
     double speed;
-    public Car(double x, double y,double speed){
+    Color color;
+    boolean end;
+    double timer;
+    Car car2;
+    public Car(double x, double y,double speed,Color color){
         this.x = x;
         this.y = y;
         this.speed = speed;
+        this.color = color;
+        if (color == Color.RED){
+            this.speed = -this.speed;
+        }
     }
 
     public void draw(DrawTool drawTool){
@@ -29,12 +38,12 @@ public class Car extends InteractiveGraphicalObject  {
         drawTool.setCurrentColor(148,148,148,255);
         drawTool.drawFilledCircle(x+200,y+70,20);
         //Auto
-        drawTool.setCurrentColor(255,215,0,255);
+        drawTool.setCurrentColor(color);
         drawTool.drawFilledRectangle(x,y,250,70);
         drawTool.setCurrentColor(0,0,0,255);
         drawTool.drawRectangle(x,y,250,70);
 
-        drawTool.setCurrentColor(255,215,0,255);
+        drawTool.setCurrentColor(color);
         drawTool.drawFilledRectangle(x+50,y-50,140,50);
         drawTool.setCurrentColor(0,0,0,255);
         drawTool.drawRectangle(x+50,y-50,140,50);
@@ -59,8 +68,24 @@ public class Car extends InteractiveGraphicalObject  {
         drawTool.setCurrentColor(0,0,0,255);
         drawTool.drawRectangle(x,y+10,30,20);
 
+        if (end){
+            drawTool.setCurrentColor(Color.orange);
+            drawTool.drawFilledCircle(600,429,500);
+        }
     }
     public void update (double dt) {
+        if (end){
+            timer += dt;
+        }
+        if (timer > 3){
+            System.out.println("'Leben ist Hart' - Maksym Turianskyi");
+            System.exit(10000);
+        }
+        if (color == Color.RED){
+            if ( x < car2.x + 200){
+                end = true;
+            }
+        }
         if (ViewController.isKeyDown(65)) {//Left
             x -= speed * dt;
         }
@@ -78,5 +103,8 @@ public class Car extends InteractiveGraphicalObject  {
             ProgramController.sceneIndex--;
             ProgramController.updateScene = true;
         }
+    }
+    public void setCar2(Car car2){
+        this.car2 = car2;
     }
 }

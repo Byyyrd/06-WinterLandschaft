@@ -3,6 +3,8 @@ package my_project.control;
 import KAGO_framework.control.Drawable;
 import KAGO_framework.control.ViewController;
 import my_project.model.*;
+
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -54,17 +56,23 @@ public class ProgramController {
         sky.setMoon(sunAndMoon);
         Scene.add(new Grass());
         Scene.add(new Street());
-        car = new Car(100,560,500);
+        Scene.add(new Cloud(-200));
+        Scene.add(new Cloud(-700));
+        Scene.add(new Cloud(-1200));
+        car = new Car(100,560,500,new Color(255,215,0,255));
         Scene.add(car);
 
         Scene.add(new Snow());
         for (int i = 0;i < 10;i++) {
             FirstScreen.add(new Tree(i*120+20, 460, 50));
         }
-        SecondScreen.add(new Lamp(100,460,50));
-        SecondScreen.add(new Lamp(400,460,50));
-        SecondScreen.add(new Lamp(700,460,50));
-        SecondScreen.add(new Lamp(1000,460,50));
+        for (int i = 0; i < 4 ;i++){
+            SecondScreen.add(new Lamp(100 + i * 300,460,50,sunAndMoon));
+        }
+        ThirdScreen.add(new Snake());
+        Car car2 = new Car(800,560,500, Color.RED);
+        car2.setCar2(car);
+        ForthScreen.add(car2);
 
         for (Drawable d:Scene) {
             viewController.draw(d);
@@ -82,6 +90,9 @@ public class ProgramController {
         }
         for (Drawable d : ThirdScreen) {
             viewController.draw(d,2);
+        }
+        for (Drawable d : ForthScreen) {
+            viewController.draw(d,3);
         }
 
 
