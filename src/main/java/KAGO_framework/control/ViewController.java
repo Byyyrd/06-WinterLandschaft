@@ -83,6 +83,9 @@ public class ViewController implements ActionListener, KeyListener, MouseListene
         }
         startProgram();
     }
+    public Scene getScene(int sceneIndex){
+        return scenes.get(sceneIndex);
+    }
 
     /**
      * Startet das Programm, nachdem Vorarbeiten abgeschlossen sind.

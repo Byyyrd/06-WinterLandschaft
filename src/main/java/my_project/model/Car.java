@@ -3,19 +3,17 @@ package my_project.model;
 import KAGO_framework.control.ViewController;
 import KAGO_framework.model.InteractiveGraphicalObject;
 import KAGO_framework.view.DrawTool;
+import my_project.control.ProgramController;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class Car extends InteractiveGraphicalObject {
-    double width;
-    double height;
+public class Car extends InteractiveGraphicalObject  {
     double speed;
-    double rotation;
-    public Car(double x, double y,double width,double height,double speed){
+    public Car(double x, double y,double speed){
         this.x = x;
         this.y = y;
-        this.height = height;
-        this.width = width;
         this.speed = speed;
     }
 
@@ -62,15 +60,23 @@ public class Car extends InteractiveGraphicalObject {
         drawTool.drawRectangle(x,y+10,30,20);
 
     }
-    public void update (double dt){
-        if(ViewController.isKeyDown(65)){//Left
+    public void update (double dt) {
+        if (ViewController.isKeyDown(65)) {//Left
             x -= speed * dt;
         }
-        if(ViewController.isKeyDown(68)){//Right
+        if (ViewController.isKeyDown(68)) {//Right
             x += speed * dt;
 
         }
-
+        if (x > 1250) {
+            x = -250;
+            ProgramController.sceneIndex++;
+            ProgramController.updateScene = true;
+        }
+        if (x < -252) {
+            x = 1248;
+            ProgramController.sceneIndex--;
+            ProgramController.updateScene = true;
+        }
     }
-
 }

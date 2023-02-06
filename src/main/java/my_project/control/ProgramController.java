@@ -2,12 +2,7 @@ package my_project.control;
 
 import KAGO_framework.control.Drawable;
 import KAGO_framework.control.ViewController;
-import KAGO_framework.model.abitur.datenstrukturen.Queue;
-import javafx.collections.ArrayChangeListener;
 import my_project.model.*;
-import my_project.view.InputManager;
-
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 /**
@@ -21,11 +16,14 @@ public class ProgramController {
 
     // Referenzen
     private ViewController viewController;  // diese Referenz soll auf ein Objekt der Klasse viewController zeigen. Über dieses Objekt wird das Fenster gesteuert.
-    public static ArrayList Scene = new ArrayList<Drawable>();
-    public static ArrayList FirstScreen = new ArrayList<Drawable>();
-    public static ArrayList SecondScreen = new ArrayList<Drawable>();
+    public static ArrayList<Drawable> Scene = new ArrayList<>();
+    public static ArrayList<Drawable> FirstScreen = new ArrayList<>();
+    public static ArrayList<Drawable> SecondScreen = new ArrayList<>();
+    public static ArrayList<Drawable> ThirdScreen = new ArrayList<>();
+    public static ArrayList<Drawable> ForthScreen = new ArrayList<>();
     int timer;
-    int sceneIndex;
+    public static int sceneIndex ;
+    public static boolean updateScene;
     public Car car;
     /**
      * Konstruktor
@@ -43,16 +41,45 @@ public class ProgramController {
      * Sie erstellt die leeren Datenstrukturen, zu Beginn nur eine Queue
      */
     public void startProgram() {
+        viewController.createScene();
+        viewController.createScene();
+        viewController.createScene();
+        viewController.createScene();
+        viewController.createScene();
+
         Scene.add(new Background());
         Scene.add(new Street());
-        car = new Car(100,560,100,50,500);
+        car = new Car(100,560,500);
         Scene.add(car);
-        Scene.add(new Moon());
+        Scene.add(new Moon(50,50));
         Scene.add(new Snow());
-
-        for (Object d:Scene) {
-            viewController.draw((Drawable) d);
+        for (int i = 0;i < 10;i++) {
+            FirstScreen.add(new Tree(i*120+20, 460, 50));
         }
+        SecondScreen.add(new Lamp(100,460,50));
+        SecondScreen.add(new Lamp(400,460,50));
+        SecondScreen.add(new Lamp(700,460,50));
+        SecondScreen.add(new Lamp(1000,460,50));
+
+        for (Drawable d:Scene) {
+            viewController.draw(d);
+            viewController.draw(d,1);
+            viewController.draw(d,2);
+            viewController.draw(d,3);
+            viewController.draw(d,4);
+
+        }
+        for (Drawable d : FirstScreen) {
+            viewController.draw(d,0);
+        }
+        for (Drawable d : SecondScreen) {
+            viewController.draw(d,1);
+        }
+        for (Drawable d : ThirdScreen) {
+            viewController.draw(d,2);
+        }
+
+
     }
 
     /**
@@ -60,31 +87,9 @@ public class ProgramController {
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
-        timer -= 1 * dt;
-        if (timer <= 0) {
-            if (car.getX() > 1250) {
-                car.setX(-250);
-                sceneIndex++;
-                switch (sceneIndex){
-                    case 1:
-                        for (Object d:FirstScreen) {
-                            viewController.draw((Drawable) d);
-                        }
-                        break;
-                    case 2:
-                        for (Object d:SecondScreen) {
-                            viewController.draw((Drawable) d);
-                        }
-                        break;
-                    case 3:
-                        break;
-                }
-
-
-            }
-            if (car.getX() < -252) {
-                car.setY(1248);
-            }
+        if (updateScene) {
+            viewController.showScene(sceneIndex);
+            updateScene = false;
         }
     }
 }
